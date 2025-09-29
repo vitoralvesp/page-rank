@@ -56,14 +56,7 @@ void menu_print_graph(Graph* graph);
 void graph_conectivity(Graph *graph);
 
 /**
- * @brief Demonstra o conteúdo do arquivo
- * @param filepath Caminho do arquivo
- * @param size Tamanho do arquivo
- */
-void show_file_content(char *filepath, int size);
-
-/**
  * @brief Encerra o programa.
  * @param Graph ponteiro para o grafo utilizado
  */
-void exit(Graph* graph);
+void exit_menu(Graph* graph);

@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include "./header/menu.h"
-#include "./header/graph.h"
+#include "../header/menu.h"
+#include "../header/graph.h"
 
 void write_data(Graph *graph, char *filepath, int size) {
     FILE *file = fopen(filepath, "w");
@@ -46,8 +46,8 @@ void menu_print_graph(Graph* graph) {
     print_graph(graph);
 }
 
-void exit(Graph* graph) {
+void exit_menu(Graph* graph) {
     printf(">> encerrando o programa...\n");
     menu_free_graph(graph);
-    exit(0);
+    //exit(0);
 }

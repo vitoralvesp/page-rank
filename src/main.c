@@ -23,8 +23,7 @@ int main() {
         printf("7. verificar conectividade\n");
         printf("8. calcular PageRank\n");
         printf("9. salvar grafo em arquivo\n");
-        printf("10. mostrar arquivo salvo\n");
-        printf("11. sair\n");
+        printf("10. sair\n");
         printf(">> escolha uma opção: ");
         scanf("%d", &choice);
 
@@ -76,16 +75,13 @@ int main() {
             scanf("%s", path);
             write_data(graph, path, graph->num_vertices);
 
-        } else if (choice == 10) {
-            char path[100];
-            printf(">> insira o caminho do arquivo: ");
-            scanf("%s", path);
-            show_file_content(path, 1000);
         }
 
-    } while (choice != 11);
+    } while (choice != 10);
 
-    exit(graph);
-
+    if (graph) free_graph(graph);
+    printf("Programa encerrado.\n");
+    
     return 0;
+
 }

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "graph.h"
+#include <math.h>
+#include "../header/graph.h"
 
 Graph* create_graph(int num_vertices) {
     Graph *graph = (Graph*) malloc(sizeof(Graph));
@@ -115,9 +116,10 @@ void graph_conectivity(Graph *graph) {
         }
     }
 
+    free(visited);
     printf(">> o grafo é conexo.\n");
+
 }
-free(visited);
 
 double* calculate_pagerank(Graph* graph, double damping_factor, int max_iterations, double tolerance) {
     int n = graph->num_vertices;

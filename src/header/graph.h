@@ -1,3 +1,6 @@
+#ifndef GRAPH_H
+#define GRAPH_H
+
 /**
  * @brief Estrutura de dados para representar um grafo usando uma matriz de adjacência.
  * @param num_vertices Número de vértices no grafo.
@@ -115,3 +118,5 @@ void dfs(Graph *graph, int v, int *visited);
  * @param graph Ponteiro para o grafo.
  */
 void graph_conectivity(Graph *graph);
+
+#endif
