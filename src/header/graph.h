@@ -80,3 +80,16 @@ void print_pagerank(double* pagerank, int num_vertices);
  */
 void save_pagerank_to_file(double* pagerank, int num_vertices, const char* filepath);
 
+/**
+ * @brief Função auxiliar: percorre o grafo usando DFS.
+ * @param graph Ponteiro para o grafo.
+ * @param v Vértice atual.
+ * @param visited Array de visitados.
+ */
+void dfs(Graph *graph, int v, int *visited);
+
+/**
+ * @brief Verifica se o grafo é conexo usando DFS.
+ * @param graph Ponteiro para o grafo.
+ */
+void graph_conectivity(Graph *graph);

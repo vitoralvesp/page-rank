@@ -14,14 +14,14 @@ void write_data(Graph *graph, char *filepath, int size);
  * @param start Vértice de origem.
  * @param end Vértice de destino.
  */
-void add_edge(Graph* graph, int start, int end);
+void menu_add_edge(Graph* graph, int start, int end);
 
 /**
  * @brief Adiciona vértices ao grafo.
  * @param graph Ponteiro para o grafo.
  * @param num_vertices Número de vértices a serem adicionados.
  */
-void add_vertices(Graph* graph, int num_vertices);
+void menu_add_vertices(Graph* graph, int num_vertices);
 
 /**
  * @brief Remove uma aresta do grafo.
@@ -36,16 +36,33 @@ void remove_edge(Graph* graph, int start, int end);
  * @param graph Ponteiro para o grafo.
  * @param num_vertices Número de vértices a serem removidos.
  */
-void remove_vertices(Graph* graph, int num_vertices);
+void menu_remove_vertices(Graph* graph, int num_vertices);
 
 /**
  * @brief Libera a memória alocada para o grafo.
  * @param graph Ponteiro para o grafo a ser liberado.
  */
-void free_graph(Graph* graph);
+void menu_free_graph(Graph* graph);
 
 /**
  * @brief Imprime o grafo.
  * @param graph Ponteiro para o grafo.
  */
-void print_graph(Graph* graph);
+void menu_print_graph(Graph* graph);
+
+/**
+ * @brief Demonstra a conectividade de um grafo.
+ */
+void graph_conectivity(Graph *graph);
+
+/**
+ * @brief Demonstra o conteúdo do arquivo
+ * @param filepath Caminho do arquivo
+ * @param size Tamanho do arquivo
+ */
+void show_file_content(char *filepath, int size);
+
+/**
+ * @brief Encerra o programa.
+ */
+void exit();
