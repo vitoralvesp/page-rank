@@ -15,7 +15,7 @@ Graph* create_graph(int num_vertices) {
 
 void add_edge(Graph* graph, int start, int end) {
     if (start >= graph->num_vertices || end >= graph->num_vertices || start < 0 || end < 0) {
-        printf("Vertices invalidos!\n");
+        printf(">> vertices invalidos!\n");
         return;
     }
     graph->adj_matrix[start][end] = 1;
@@ -43,7 +43,7 @@ void add_vertices(Graph* graph, int num_vertices) {
 
 void remove_edge(Graph* graph, int start, int end) {
     if (start >= graph->num_vertices || end >= graph->num_vertices || start < 0 || end < 0) {
-        printf("Vertices invalidos!\n");
+        printf(">> vertices invalidos!\n");
         return;
     }
     graph->adj_matrix[start][end] = 0;
@@ -52,7 +52,7 @@ void remove_edge(Graph* graph, int start, int end) {
 
 void remove_vertices(Graph* graph, int num_vertices) {
     if (num_vertices >= graph->num_vertices) {
-        printf("Remocao invalida!\n");
+        printf(">> remocao invalida!\n");
         return;
     }
 
@@ -75,8 +75,8 @@ void free_graph(Graph* graph) {
 }
 
 void print_graph(Graph* graph) {
-    printf("Numero de vertices: %d\n", graph->num_vertices);
-    printf("Matriz de adjacencia:\n");
+    printf(">> numero de vertices: %d\n", graph->num_vertices);
+    printf(">> matriz de adjacencia:\n");
 
     for (int i = 0; i < graph->num_vertices; i++) {
         for (int j = 0; j < graph->num_vertices; j++) {
@@ -95,13 +95,13 @@ void dfs(Graph *graph, int v, int *visited) {
 
 void graph_conectivity(Graph *graph) {
     if (graph->num_vertices == 0) {
-        printf("O grafo nao possui vertices.\n");
+        printf(">> o grafo não possui vertices.\n");
         return;
     }
 
     int *visited = (int*) calloc(graph->num_vertices, sizeof(int));
     if (!visited) {
-        perror("Erro de alocacao em graph_conectivity");
+        perror(">> erro de alocacao em graph_conectivity");
         return;
     }
 
@@ -109,12 +109,73 @@ void graph_conectivity(Graph *graph) {
 
     for (int i = 0; i < graph->num_vertices; i++) {
         if (!visited[i]) {
-            printf("O grafo NAO eh conexo\n");
+            printf(">> o grafo é conexo.\n");
             free(visited);
             return;
         }
     }
 
-    printf("O grafo eh conexo\n");
-    free(visited);
+    printf(">> o grafo é conexo.\n");
+}
+free(visited);
+
+double* calculate_pagerank(Graph* graph, double damping_factor, int max_iterations, double tolerance) {
+    int n = graph->num_vertices;
+    double *rank = (double*) malloc(n * sizeof(double));
+    double *new_rank = (double*) malloc(n * sizeof(double));
+
+    for (int i = 0; i < n; i++) rank[i] = 1.0 / n;
+
+    for (int iter = 0; iter < max_iterations; iter++) {
+        for (int i = 0; i < n; i++) new_rank[i] = (1.0 - damping_factor) / n;
+
+        for (int j = 0; j < n; j++) {
+            int out_degree = 0;
+            for (int k = 0; k < n; k++) {
+                if (graph->adj_matrix[j][k]) out_degree++;
+            }
+
+            if (out_degree == 0) continue;
+
+            for (int k = 0; k < n; k++) {
+                if (graph->adj_matrix[j][k]) {
+                    new_rank[k] += damping_factor * (rank[j] / out_degree);
+                }
+            }
+        }
+
+        double diff = 0.0;
+        for (int i = 0; i < n; i++) diff += fabs(new_rank[i] - rank[i]);
+        if (diff < tolerance) break;
+
+        for (int i = 0; i < n; i++) rank[i] = new_rank[i];
+    }
+
+    free(new_rank);
+    return rank;
+}
+
+void free_pagerank(double* pagerank) {
+    free(pagerank);
+}
+
+void print_pagerank(double* pagerank, int num_vertices) {
+    printf("Valores de PageRank:\n");
+    for (int i = 0; i < num_vertices; i++) {
+        printf("Vertice %d: %.6f\n", i, pagerank[i]);
+    }
+}
+
+void save_pagerank_to_file(double* pagerank, int num_vertices, const char* filepath) {
+    FILE *file = fopen(filepath, "w");
+    if (!file) {
+        perror("Erro ao salvar PageRank");
+        return;
+    }
+
+    for (int i = 0; i < num_vertices; i++) {
+        fprintf(file, "Vertice %d: %.6f\n", i, pagerank[i]);
+    }
+
+    fclose(file);
 }

@@ -5,12 +5,12 @@
 void write_data(Graph *graph, char *filepath, int size) {
     FILE *file = fopen(filepath, "w");
     if (!file) {
-        perror("Erro ao abrir arquivo");
+        perror(">> erro ao abrir arquivo");
         return;
     }
 
-    fprintf(file, "Numero de vertices: %d\n", graph->num_vertices);
-    fprintf(file, "Matriz de adjacencia:\n");
+    fprintf(file, ">> numero de vertices: %d\n", graph->num_vertices);
+    fprintf(file, ">> matriz de adjacencia:\n");
 
     for (int i = 0; i < graph->num_vertices && i < size; i++) {
         for (int j = 0; j < graph->num_vertices && j < size; j++) {
@@ -46,7 +46,8 @@ void menu_print_graph(Graph* graph) {
     print_graph(graph);
 }
 
-void exit() {
+void exit(Graph* graph) {
     printf(">> encerrando o programa...\n");
+    menu_free_graph(graph);
     exit(0);
 }

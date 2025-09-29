@@ -64,5 +64,6 @@ void show_file_content(char *filepath, int size);
 
 /**
  * @brief Encerra o programa.
+ * @param Graph ponteiro para o grafo utilizado
  */
-void exit();
+void exit(Graph* graph);
